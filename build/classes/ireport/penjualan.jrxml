@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="600" pageHeight="900" columnWidth="560" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b0ba48cb-5193-4da7-99c9-f931369f7170">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="kode_jual" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$F{penjualan_no_transaksi}]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     penjualan.`no_transaksi` AS penjualan_no_transaksi,
+     penjualan.`tgl_transaksi` AS penjualan_tgl_transaksi,
+     penjualan.`kd_barang` AS penjualan_kd_barang,
+     penjualan.`nama_barang` AS penjualan_nama_barang,
+     penjualan.`stok` AS penjualan_stok,
+     penjualan.`jumlah` AS penjualan_jumlah,
+     penjualan.`harga` AS penjualan_harga,
+     penjualan.`total` AS penjualan_total,
+     penjualan.`bayar` AS penjualan_bayar,
+     penjualan.`kembalian` AS penjualan_kembalian
+FROM
+     `penjualan` penjualan
+WHERE
+penjualan.no_transaksi=$P{kode_jual}]]>
+	</queryString>
+	<field name="penjualan_no_transaksi" class="java.lang.String"/>
+	<field name="penjualan_tgl_transaksi" class="java.sql.Date"/>
+	<field name="penjualan_kd_barang" class="java.lang.String"/>
+	<field name="penjualan_nama_barang" class="java.lang.String"/>
+	<field name="penjualan_stok" class="java.lang.Integer"/>
+	<field name="penjualan_jumlah" class="java.lang.Integer"/>
+	<field name="penjualan_harga" class="java.lang.Long"/>
+	<field name="penjualan_total" class="java.lang.Long"/>
+	<field name="penjualan_bayar" class="java.lang.Long"/>
+	<field name="penjualan_kembalian" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="132" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="560" height="95" backcolor="#873838" uuid="65352b6d-9b80-4842-98bb-ff8eb9a6a4bc"/>
+				<staticText>
+					<reportElement style="Title" x="0" y="0" width="370" height="66" uuid="87a6838c-8adf-486c-877c-15affaa52370"/>
+					<textElement>
+						<font isBold="false"/>
+					</textElement>
+					<text><![CDATA[Toko D'Raffa]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="SubTitle" x="385" y="66" width="168" height="29" uuid="3515227c-f1e7-47fe-8ff0-f1118db600c2"/>
+					<textElement>
+						<font size="22" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Laporan Penjualan]]></text>
+				</staticText>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="0" y="100" width="555" height="32" forecolor="#000000" backcolor="#AF6969" uuid="9d0096d2-78e3-40b1-912c-94b27c49e7d8"/>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement x="386" y="0" width="167" height="32" forecolor="#FFFFFF" uuid="b23e2b3c-7c49-41ab-9b99-7ae2967c3d71"/>
+					<textElement textAlignment="Right">
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="26" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" positionType="Float" x="2" y="8" width="197" height="18" uuid="b22acd80-2323-4914-b20e-0e186c9e800b"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{penjualan_no_transaksi}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="324" splitType="Stretch">
+			<frame>
+				<reportElement style="Row" mode="Opaque" x="0" y="0" width="555" height="18" uuid="fd8a0ea7-8371-4646-9606-dcf784dc6f2f"/>
+			</frame>
+			<staticText>
+				<reportElement style="Column header" x="14" y="18" width="73" height="18" forecolor="#000000" uuid="e502baf1-8b27-4a64-94c7-024487961f64"/>
+				<textElement>
+					<font fontName="Corbel" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tanggal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="14" y="51" width="73" height="18" forecolor="#000000" uuid="8f14fbef-35f2-4282-979e-8f136d3d2277"/>
+				<textElement>
+					<font fontName="Corbel" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Kode Barang]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="14" y="86" width="55" height="18" forecolor="#000000" uuid="9c2a5ea9-1d1e-4c13-904b-ef6a93ee6f53"/>
+				<textElement>
+					<font fontName="Corbel" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nama]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="14" y="124" width="55" height="18" forecolor="#000000" uuid="daf00462-92df-41a2-8cbd-f747d72ea7e5"/>
+				<textElement>
+					<font fontName="Corbel" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Jumlah]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="14" y="162" width="55" height="18" forecolor="#000000" uuid="a860bc57-c9a6-40f4-87ba-eef688331afd"/>
+				<textElement>
+					<font fontName="Corbel" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Harga]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="286" y="212" width="55" height="18" forecolor="#000000" uuid="01a0a338-e263-4556-958f-7371ba22ed65"/>
+				<textElement>
+					<font fontName="Corbel" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Detail" positionType="Float" x="103" y="18" width="220" height="18" uuid="643f7494-5fd4-4233-a615-b745a65c44b0"/>
+				<textElement>
+					<font fontName="Corbel" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" positionType="Float" x="103" y="51" width="220" height="18" uuid="a66555f8-bd25-43a3-9026-6b9f2b451033"/>
+				<textElement>
+					<font fontName="Corbel" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{penjualan_kd_barang}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" positionType="Float" x="103" y="86" width="220" height="18" uuid="e99295a7-cee5-4c72-8751-bc9bc2f9b24a"/>
+				<textElement>
+					<font fontName="Corbel" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{penjualan_nama_barang}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" positionType="Float" x="103" y="124" width="220" height="18" uuid="cf869a59-6fb6-4846-adeb-31d3db010e63"/>
+				<textElement>
+					<font fontName="Corbel" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{penjualan_jumlah}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" positionType="Float" x="103" y="162" width="220" height="18" uuid="dbea9a2d-27aa-4f11-96a6-6ef60ff11c26"/>
+				<textElement>
+					<font fontName="Corbel" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{penjualan_harga}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" positionType="Float" x="390" y="212" width="163" height="18" uuid="50a361eb-0a43-4ea2-a49e-f37410327f25"/>
+				<textElement>
+					<font fontName="Corbel" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{penjualan_total}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" x="286" y="245" width="83" height="18" forecolor="#000000" uuid="3937dd52-968a-457e-8026-f2277314c2d0"/>
+				<textElement>
+					<font fontName="Corbel" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bayar]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="286" y="273" width="83" height="18" forecolor="#000000" uuid="b2b9535a-f6d9-4a01-9439-e4bca5416fed"/>
+				<textElement>
+					<font fontName="Corbel" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Kembalian]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" positionType="Float" x="392" y="245" width="168" height="18" uuid="c979193e-3877-4428-9f37-9e694447a056"/>
+				<textElement>
+					<font fontName="Corbel" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{penjualan_bayar}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" positionType="Float" x="392" y="273" width="163" height="18" uuid="a2cec0f2-34b7-4abf-856a-31b17c403526"/>
+				<textElement>
+					<font fontName="Corbel" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{penjualan_kembalian}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="396" y="10" width="167" height="32" forecolor="#FFFFFF" uuid="d23abc41-79b0-44e6-8d64-7f373e6e5d82"/>
+				<textElement textAlignment="Right">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="18" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="a368eaac-1356-4308-94ff-aa79ab1aed08"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="1" width="555" height="24" forecolor="#D0B48E" backcolor="#873838" uuid="f664f059-b719-41ea-be88-f084d9f024c7"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="513" y="0" width="40" height="20" forecolor="#FFFFFF" uuid="595d4381-622a-4b34-8f01-4032e34e5c68"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="433" y="0" width="80" height="20" forecolor="#FFFFFF" uuid="c76943a5-7d5f-4d23-965e-50699ed3962f"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="2" y="1" width="197" height="20" forecolor="#FFFFFF" uuid="f526ae42-e2e5-4ce3-b014-4b909c4a507f"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
